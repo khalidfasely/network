@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import configeStore from './store/configureStore';
 //import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AppRoute from './router/AppRouter';
+import { login } from './actions/auth';
+//import './playground/redux-101';
 
 //ReactDOM.render(
 //  <BrowserRouter>
@@ -11,9 +15,13 @@ import AppRoute from './router/AppRouter';
 //  document.getElementById('root')
 //);
 
+const store = configeStore();
+
 ReactDOM.render(
   <React.StrictMode>
-    <AppRoute />
+    <Provider store={store}>
+      <AppRoute />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
