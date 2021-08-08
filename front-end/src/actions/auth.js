@@ -1,6 +1,7 @@
 import logoutApi from "../fetching/logout";
 import loginApi from "../fetching/login";
 import registerApi from "../fetching/register";
+import user from "../fetching/user";
 
 export const logout = () => ({
     type: 'LOGOUT'
@@ -37,3 +38,18 @@ export const startRegister = ({ username, email, password, confirmation }) => {
         });
     };
 };
+
+//Set User
+export const setUser = ({ uname } = {}) => ({
+    type: 'SET_USER',
+    uname
+});
+
+export const startSetUser = () => {
+    return (dispatch) => {
+        return user().then((uname) => {
+            dispatch(setUser({ uname }));
+            return uname;
+        });
+    }
+}

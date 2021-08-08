@@ -18,8 +18,8 @@ from .models import User
 def index(request):
     return render(request, "network/index.html")
 
-#def user(request):
-#    return JsonResponse({"user": f"{request.user}"}, status=201)
+def user(request):
+    return JsonResponse({"user": f"{request.user}"}, status=201)
     #return render(request, "network/index.html")
 
 @csrf_exempt

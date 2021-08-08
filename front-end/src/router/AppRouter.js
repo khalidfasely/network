@@ -7,7 +7,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 //import { Router } from 'react-router';
 import createHistory from 'history/createBrowserHistory';
 import App from '../components/App';
-//import PrivateRoute from './PrivateRoute';
+import SignRoute from './SignRoute';
 //import PublicRoute from './PublicRoute';
 
 export const history = createHistory();
@@ -18,9 +18,9 @@ const AppRoute = () => (
       <Nav />
       <Switch>
         <Route path="/" component={App} exact={true} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route component={NotFoundPage} activeClassName="is-active" />
+        <SignRoute path="/login" component={Login} />
+        <SignRoute path="/register" component={Register} />
+        <Route component={NotFoundPage} />
       </Switch>
     </div>
   </Router>

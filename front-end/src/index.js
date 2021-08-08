@@ -5,7 +5,7 @@ import configeStore from './store/configureStore';
 //import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AppRoute from './router/AppRouter';
-import { login } from './actions/auth';
+import { login, startSetUser } from './actions/auth';
 //import './playground/redux-101';
 
 //ReactDOM.render(
@@ -17,14 +17,21 @@ import { login } from './actions/auth';
 
 const store = configeStore();
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <AppRoute />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const renderApp = () => {
+  store.dispatch(startSetUser()).then((user) => {
+    //console.log(user);
+    ReactDOM.render(
+      <React.StrictMode>
+        <Provider store={store}>
+          <AppRoute />
+        </Provider>
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  });
+};
+
+renderApp();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
