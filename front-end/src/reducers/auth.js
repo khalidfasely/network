@@ -1,6 +1,6 @@
 // auth reducer
 const authReducerDefaultState = {
-    uname: 'Khalid'
+    uname: undefined
 };
 
 export default (state = (authReducerDefaultState), action) => {

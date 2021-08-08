@@ -18,8 +18,8 @@ from .models import User
 def index(request):
     return render(request, "network/index.html")
 
-def user(request):
-    return JsonResponse({"user": f"{request.user}"}, status=201)
+#def user(request):
+#    return JsonResponse({"user": f"{request.user}"}, status=201)
     #return render(request, "network/index.html")
 
 @csrf_exempt
@@ -38,7 +38,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             #return 'Valid'
-            return JsonResponse({"message": "Login Successfully"}, status=201)
+            return JsonResponse({"message": "Login Successfully", "user": f"{request.user}"}, status=201)
         else:
             return JsonResponse({"message": "Invalid username and/or password."}, status=201)
             #return render(request, "network/login.html", {
@@ -88,7 +88,7 @@ def register(request):
             #    "message": "."
             #})
         login(request, user)
-        return JsonResponse({"message": "Register"}, status=201)
+        return JsonResponse({"message": "Register", "user": f"{request.user}"}, status=201)
         #return HttpResponseRedirect(reverse("index"))
     else:
         return JsonResponse({"message": "The method most be POST"}, status=201)

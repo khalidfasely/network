@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import register from '../fetching/register';
 import { history } from '../router/AppRouter';
+import { startRegister } from '../actions/auth';
 
-const Register = () => {
+const Register = ({ startRegister }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,9 +14,6 @@ const Register = () => {
     const onUsernameChange = (e) => {
       const username = e.target.value;
       setUsername(username);
-      //if(username) {
-      //  setUsername(username);
-      //}
     }
 
     const onEmailChange = (e) => {
@@ -38,8 +37,8 @@ const Register = () => {
         const availableData = !!(username && email && password && confirmation && password === confirmation);
 
         if (availableData) {
-          register({ username, email, password, confirmation }).then((message) => {
-            if(message === 'Register') {
+          startRegister({ username, email, password, confirmation }).then((result) => {
+            if(result.message === 'Register') {
               setUsername('');
               setEmail('');
               setPassword('');
@@ -49,7 +48,7 @@ const Register = () => {
               
               history.push('/');
             } else {
-              setError(message);
+              setError(result.message);
             }
           });
         } else {
@@ -94,4 +93,9 @@ const Register = () => {
     );
 }
 
-export default Register;
+//Export the connected component
+const mapDispatchToProps = (dispatch) => ({
+  startRegister: ({ username, email, password, confirmation }) => dispatch(startRegister({ username, email, password, confirmation }))
+});
+
+export default connect(undefined, mapDispatchToProps)(Register);

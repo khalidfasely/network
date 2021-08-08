@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import login from '../fetching/login';
+import { connect } from 'react-redux';
+import { startLogin } from '../actions/auth';
 import { history } from '../router/AppRouter';
 
-const Login = () => {
+const Login = ({ startLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -24,9 +25,9 @@ const Login = () => {
         const availableData = !!(username && password);
 
         if (availableData) {
-            login({ username, password }).then((message) => {
-                //console.log(message);
-                if(message === 'Login Successfully') {
+            startLogin({ username, password }).then((result) => {
+                //console.log(result);
+                if(result.message === 'Login Successfully') {
                     setUsername('');
                     setPassword('');
 
@@ -34,7 +35,7 @@ const Login = () => {
 
                     history.push('/');
                 } else {
-                    setError(message);
+                    setError(result.message);
                 }
             });
             
@@ -67,4 +68,10 @@ const Login = () => {
     );
 };
 
-export default Login;
+
+//Export the connected component
+const mapDispatchToProps = (dispatch) => ({
+    startLogin: ({ username, password }) => dispatch(startLogin({ username, password }))
+});
+
+export default connect(undefined, mapDispatchToProps)(Login);

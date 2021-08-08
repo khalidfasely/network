@@ -1,39 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { history } from '../router/AppRouter';
+import { startLogout } from '../actions/auth';
 
-const Nav = () => {
-    const [user, setUser] = useState('');
-    const logout = () => {
-        fetch('/data/logout')
-        .then(res => res.json())
-        .then(() => {
-          setUser('');
-        })
-        .catch(er => console.log(er));
-        history.push('/login');
-    }
-    useEffect(() => {
-        fetch('/data/user')
-        .then(response => response.json())
-        .then(result => {
-          (result.user !== 'AnonymousUser') ?
-          setUser(result.user) :
-          setUser('')
-        })
-        .catch(er => console.log(er));
-
-      }, [user]);
+const Nav = ({ uname, startLogout }) => {
     return (
         <nav>
             <Link to='/'>Network</Link>
             <div>
-                <Link to='/Anonymous'>{user && user}</Link>
+                <Link to='profile'>{uname && uname}</Link>
                 <Link to='/all-posts'>All Posts</Link>
-                { user ?
+                { uname ?
                   <span>
                     <Link to='/following'>Following</Link>
-                    <button onClick={logout}>Logout</button>
+                    <button onClick={startLogout}>Logout</button>
                   </span> :
                   <span>
                     <Link to='/login'>Log In</Link>
@@ -46,4 +26,13 @@ const Nav = () => {
     )
 };
 
-export default Nav;
+//Export the connected component
+const mapStateToProps = (state) => ({
+  uname: state.auth.uname
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  startLogout: () => dispatch(startLogout())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);
