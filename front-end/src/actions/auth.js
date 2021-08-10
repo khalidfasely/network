@@ -16,15 +16,16 @@ export const startLogout = () => {
     };
 };
 
-export const login = ({ uname } = {}) => ({
+export const login = ({ uname, is_admin } = {}) => ({
     type: 'LOGIN',
-    uname
+    uname,
+    is_admin
 });
 
 export const startLogin = ({ username, password }) => {
     return (dispatch) => {
         return loginApi({ username, password }).then((result) => {
-            dispatch(login({ uname: result.user }));
+            dispatch(login({ uname: result.user, is_admin: result.is_admin }));
             return result;
         });
     };
@@ -33,23 +34,26 @@ export const startLogin = ({ username, password }) => {
 export const startRegister = ({ username, email, password, confirmation }) => {
     return (dispatch) => {
         return registerApi({ username, email, password, confirmation }).then((result) => {
-            dispatch(login({ uname: result.user }));
+            dispatch(login({ uname: result.user, is_admin: result.is_admin }));
             return result;
         });
     };
 };
 
 //Set User
-export const setUser = ({ uname } = {}) => ({
+export const setUser = ({ uname, is_admin } = {}) => ({
     type: 'SET_USER',
-    uname
+    uname,
+    is_admin
 });
 
 export const startSetUser = () => {
     return (dispatch) => {
-        return user().then((uname) => {
-            dispatch(setUser({ uname }));
-            return uname;
+        return user().then((result) => {
+            if(result) {
+                dispatch(setUser({ uname: result.user, is_admin: result.is_admin }));
+                return result;
+            };
         });
     }
 }

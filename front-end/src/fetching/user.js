@@ -3,7 +3,7 @@ const user = () => {
     .then(res => res.json())
     .then(result => {
         if(result.user !== "AnonymousUser") {
-            return result.user;
+            return result;
         } else {
             return undefined;
         };

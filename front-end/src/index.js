@@ -20,7 +20,7 @@ const store = configeStore();
 
 const renderApp = () => {
   store.dispatch(startSetPosts()).then(() => {
-    store.dispatch(startSetUser()).then((user) => {
+    store.dispatch(startSetUser()).then(() => {
       //console.log(user);
       ReactDOM.render(
         <React.StrictMode>

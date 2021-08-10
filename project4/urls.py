@@ -23,6 +23,7 @@ urlpatterns = [
     #Front End
     path("", TemplateView.as_view(template_name='index.html')),
     path("<str>", TemplateView.as_view(template_name='index.html')),
+    path("user/<str>", TemplateView.as_view(template_name='index.html')),
     
     #Back End
     path("data/", include("network.urls")),

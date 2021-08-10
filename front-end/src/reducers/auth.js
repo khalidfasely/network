@@ -1,6 +1,7 @@
 // auth reducer
 const authReducerDefaultState = {
-    uname: undefined
+    uname: undefined,
+    is_admin: undefined
 };
 
 export default (state = (authReducerDefaultState), action) => {
@@ -8,17 +9,20 @@ export default (state = (authReducerDefaultState), action) => {
         case 'SET_USER':
             return {
                 ...state,
-                uname: action.uname
+                uname: action.uname,
+                is_admin: action.is_admin
             }
         case 'LOGIN':
             return {
                 ...state,
-                uname: action.uname
+                uname: action.uname,
+                is_admin: action.is_admin
             };
         case 'LOGOUT':
             return {
                 ...state,
-                uname: undefined
+                uname: undefined,
+                is_admin: undefined
             };
         default:
             return state;

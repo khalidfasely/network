@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { startLogout } from '../actions/auth';
 
-const Nav = ({ uname, startLogout }) => {
+const Nav = ({ uname, u_is_admin, startLogout }) => {
     return (
         <nav>
             <Link to='/'>Network</Link>
             <div>
-                <Link to='profile'>{uname && uname}</Link>
+                <Link to='/profile'>{uname && uname}{u_is_admin && <span>(V)</span>}</Link>
                 <Link to='/all-posts'>All Posts</Link>
                 { uname ?
                   <span>
@@ -28,7 +28,8 @@ const Nav = ({ uname, startLogout }) => {
 
 //Export the connected component
 const mapStateToProps = (state) => ({
-  uname: state.auth.uname
+  uname: state.auth.uname,
+  u_is_admin: state.auth.is_admin
 });
 
 const mapDispatchToProps = (dispatch) => ({
