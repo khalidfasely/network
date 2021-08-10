@@ -6,6 +6,7 @@ import configeStore from './store/configureStore';
 import reportWebVitals from './reportWebVitals';
 import AppRoute from './router/AppRouter';
 import { login, startSetUser } from './actions/auth';
+import { startSetPosts } from './actions/posts';
 //import './playground/redux-101';
 
 //ReactDOM.render(
@@ -18,17 +19,20 @@ import { login, startSetUser } from './actions/auth';
 const store = configeStore();
 
 const renderApp = () => {
-  store.dispatch(startSetUser()).then((user) => {
-    //console.log(user);
-    ReactDOM.render(
-      <React.StrictMode>
-        <Provider store={store}>
-          <AppRoute />
-        </Provider>
-      </React.StrictMode>,
-      document.getElementById('root')
-    );
-  });
+  store.dispatch(startSetPosts()).then(() => {
+    store.dispatch(startSetUser()).then((user) => {
+      //console.log(user);
+      ReactDOM.render(
+        <React.StrictMode>
+          <Provider store={store}>
+            <AppRoute />
+          </Provider>
+        </React.StrictMode>,
+        document.getElementById('root')
+      );
+    });
+  })
+  
 };
 
 renderApp();

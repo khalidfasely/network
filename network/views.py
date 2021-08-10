@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User
+from .models import User, Posts
 
 #def index(request):
 #    if request.user.is_authenticated:
@@ -48,7 +48,7 @@ def login_view(request):
             #    "message": "Invalid username and/or password."
             #})
     else:
-        return JsonResponse({"message": "The method most be POST"}, status=201)
+        return JsonResponse({"message": "The method must be POST"}, status=400)
         #return render(request, "network/login.html")
 
 
@@ -91,5 +91,33 @@ def register(request):
         return JsonResponse({"message": "Register", "user": f"{request.user}"}, status=201)
         #return HttpResponseRedirect(reverse("index"))
     else:
-        return JsonResponse({"message": "The method most be POST"}, status=201)
+        return JsonResponse({"message": "The method must be POST"}, status=400)
         #return render(request, "network/register.html")
+
+
+@csrf_exempt
+def new_post(request):
+    if request.method != "POST":
+        return JsonResponse({ "message": "The method must be POSt" }, status=400)
+    
+    #Get data from request
+    data = json.loads(request.body)
+
+    #Get content, user from data
+    content = data.get("content", "")
+    user = request.user
+
+    #Save data into database
+    post = Posts.objects.create(user=user, content=content)
+    post.save()
+    #print(f'post, {post.serialize()}')
+
+    return JsonResponse({ "message": "Post saved successfully.", "post": post.serialize() }, status=201)
+
+
+def posts(request):
+    #To reverse the order
+    #posts = list(Posts.objects.order_by("-time").values())
+    #return JsonResponse({ "posts": posts }, status=201)
+    posts = Posts.objects.order_by("-time").all()
+    return JsonResponse({ "posts": [post.serialize() for post in posts] }, status=201)
