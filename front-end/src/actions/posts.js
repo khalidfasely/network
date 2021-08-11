@@ -1,5 +1,6 @@
 import postsApi from '../fetching/posts';
 import addPostApi from '../fetching/addPost';
+import postsProfileApi from '../fetching/postsProfile';
 
 export const setPosts = (posts) => ({
     type: 'SET_POSTS',
@@ -25,6 +26,22 @@ export const startAddPost = ({ post }) => {
     return (dispatch) => {
         return addPostApi({ content: post }).then((result) => {
             dispatch(addPost(result.post));
+            return result;
+        });
+    };
+};
+
+export const setPostsProfile = (posts) => ({
+    type: 'SET_POSTS_PROFILE',
+    posts
+});
+
+export const startSetPostsProfile = (id) => {
+    return (dispatch) => {
+        return postsProfileApi(id).then((result) => {
+            dispatch(setPostsProfile(result.posts));
+            //console.log(result.posts);
+            //dispatch(setPostsProfile(result.posts));
             return result;
         });
     };

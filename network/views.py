@@ -121,3 +121,9 @@ def posts(request):
     #return JsonResponse({ "posts": posts }, status=201)
     posts = Posts.objects.order_by("-time").all()
     return JsonResponse({ "posts": [post.serialize() for post in posts] }, status=201)
+
+def profile(request, user_id):
+    user = User.objects.get(pk=user_id)
+    posts = Posts.objects.order_by("-time").filter(user=user_id)
+
+    return JsonResponse({ "posts": [post.serialize() for post in posts], "user": f"{user}" }, status=201)

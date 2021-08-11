@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Counter from './Counter';
 import AddPostForm from './AddPostForm';
 import PostsList from './PostsList';
+import { startSetPosts } from '../actions/posts';
 //import './App.css';
 
-const App = ({ uname, posts }) => {
+const App = ({ uname, posts, startSetPosts }) => {
+    useEffect(() => {
+        startSetPosts();
+    }, [])
     //console.log(posts);
     return (
     <div>
@@ -21,4 +25,8 @@ const mapStateToProps = (state) => ({
     posts: state.posts.posts
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+    startSetPosts: () => dispatch(startSetPosts())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

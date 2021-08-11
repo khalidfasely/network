@@ -15,6 +15,17 @@ export default (state = (postsReducerDefaultState), action) => {
                     ...state.posts
                 ]
             }
+        case 'SET_POSTS_PROFILE':
+            //return {
+            //    posts: [
+            //        action.post,
+            //        ...state.posts
+            //    ]
+            //}
+            return {
+                //...state,
+                posts: action.posts
+            }
         default:
             return state;
     }
