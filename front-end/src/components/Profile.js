@@ -2,36 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startSetPostsProfile } from '../actions/posts';
 import PostsList from './PostsList';
+import ProfileHeader from './ProfileHeader';
 
-class ReduxUser extends React.Component {
+class Profile extends React.Component {
     componentWillMount(){
         this.props.startSetPostsProfile(this.props.linkUser);
         
     }
-    componentDidMount(){
-        setTimeout(() => {
-            console.log(this.props.userProfile);
-            console.log(this.props.userT);
-        }, 2000)
-    }
     render () {
         return (
             <div>
-                <div>{this.props.linkUser} - {this.props.userProfile && this.props.userProfile.username}</div>
-                {this.props.userProfile && <div>{this.props.userProfile.user}</div>}
-                {this.props.follow && <div>Following: {this.props.follow.following} | Followers: {this.props.follow.followers}</div>}
-                {
-                    this.props.uname &&
-                    (
-                        this.props.uname === (this.props.userProfile && this.props.userProfile.username) ?
-                        <p>Nothing</p> :
-                        (
-                            (this.props.follow && this.props.follow.follow_up) !== 'None' ?
-                            <button>Unfollow</button> :
-                            <button>Follow</button>
-                        )
-                    )
-                }
+                <ProfileHeader
+                  linkUser={this.props.linkUser}
+                  userProfile={this.props.userProfile}
+                  follow={this.props.follow}
+                  uname={this.props.uname}
+                />
                 <PostsList posts={this.props.postsProfile} />
             </div>
         );
@@ -53,7 +39,7 @@ const mapDispatchToProps = (dispatch) => ({
     startSetPostsProfile: (id) => dispatch(startSetPostsProfile(id))
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(ReduxUser);
+export default connect(mapStateToProps,mapDispatchToProps)(Profile);
 
 
 //import React from 'react';

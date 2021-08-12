@@ -8,7 +8,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import App from '../components/App';
 import SignRoute from './SignRoute';
-import ReduxUser from '../components/ReduxUser';
+import Profile from '../components/Profile';
 //import PublicRoute from './PublicRoute';
 
 export const history = createHistory();
@@ -21,7 +21,7 @@ const AppRoute = () => (
         <Route path="/" component={App} exact={true} />
         <SignRoute path="/login" component={Login} />
         <SignRoute path="/register" component={Register} />
-        <Route path="/user/:id" component={ReduxUser} />
+        <Route path="/user/:id" component={Profile} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

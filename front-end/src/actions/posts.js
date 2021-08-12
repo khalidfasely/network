@@ -31,10 +31,10 @@ export const startAddPost = ({ post }) => {
     };
 };
 
-export const setPostsProfile = ({posts, u, follow}) => ({
+export const setPostsProfile = ({posts, user, follow}) => ({
     type: 'SET_POSTS_PROFILE',
     posts,
-    u,
+    user,
     follow
 });
 

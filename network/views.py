@@ -136,10 +136,7 @@ def profile(request, user_id):
 
     return JsonResponse({
         "posts": [post.serialize() for post in posts],
-        "u": {
-            "user": f"{user}",
-            "username": f"{user.username}"
-        },
+        "user": f"{user}",
         "follow": {
             "following": f"{following}",
             "followers": f"{followers}",
