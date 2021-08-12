@@ -24,7 +24,9 @@ export default (state = (postsReducerDefaultState), action) => {
             //}
             return {
                 //...state,
-                posts: action.posts
+                posts: action.posts,
+                user: action.u,
+                follow: action.follow
             }
         default:
             return state;

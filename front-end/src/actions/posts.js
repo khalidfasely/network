@@ -31,16 +31,18 @@ export const startAddPost = ({ post }) => {
     };
 };
 
-export const setPostsProfile = (posts) => ({
+export const setPostsProfile = ({posts, u, follow}) => ({
     type: 'SET_POSTS_PROFILE',
-    posts
+    posts,
+    u,
+    follow
 });
 
 export const startSetPostsProfile = (id) => {
     return (dispatch) => {
         return postsProfileApi(id).then((result) => {
-            dispatch(setPostsProfile(result.posts));
-            //console.log(result.posts);
+            dispatch(setPostsProfile(result));
+            //console.log(result);
             //dispatch(setPostsProfile(result.posts));
             return result;
         });

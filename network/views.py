@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User, Posts
+from .models import User, Posts, Followers
 
 #def index(request):
 #    if request.user.is_authenticated:
@@ -125,5 +125,24 @@ def posts(request):
 def profile(request, user_id):
     user = User.objects.get(pk=user_id)
     posts = Posts.objects.order_by("-time").filter(user=user_id)
+    following = Followers.objects.filter(user_id=user_id).count()
+    followers = Followers.objects.filter(following=user_id).count()
 
-    return JsonResponse({ "posts": [post.serialize() for post in posts], "user": f"{user}" }, status=201)
+    # If the user singing in
+    if request.user.username:
+        follow_up = Followers.objects.filter(user_id=request.user, following=user_id).first()
+    else:
+        follow_up = None
+
+    return JsonResponse({
+        "posts": [post.serialize() for post in posts],
+        "u": {
+            "user": f"{user}",
+            "username": f"{user.username}"
+        },
+        "follow": {
+            "following": f"{following}",
+            "followers": f"{followers}",
+            "follow_up": f"{follow_up}"
+        }
+    }, status=201)
