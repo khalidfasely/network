@@ -98,7 +98,7 @@ def register(request):
 @csrf_exempt
 def new_post(request):
     if request.method != "POST":
-        return JsonResponse({ "message": "The method must be POSt" }, status=400)
+        return JsonResponse({ "message": "The method must be POST" }, status=400)
     
     #Get data from request
     data = json.loads(request.body)
@@ -143,3 +143,53 @@ def profile(request, user_id):
             "follow_up": f"{follow_up}"
         }
     }, status=201)
+
+@csrf_exempt
+def follow(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        following = data.get("following", "")
+        following_user = User.objects.get(pk=following)
+
+        follow = Followers.objects.create(user_id=request.user, following=following_user)
+        follow.save()
+
+        return JsonResponse({ "message": "Follow Successfully." })
+
+    return JsonResponse({ "message": "The method must be POST." })
+
+@csrf_exempt
+def unfollow(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        following = data.get("following", "")
+        following_user = User.objects.get(pk=following)
+
+        Followers.objects.filter(user_id=request.user, following=following_user).delete()
+
+        return JsonResponse({ "message": "Unfollow Successfully." })
+
+    return JsonResponse({ "message": "The method must be POST." })
+
+
+def following(request):
+    users_f = []
+    followings = Followers.objects.filter(user_id=request.user)
+    for following_user in followings:
+        users_f.append(following_user.following.id)
+    posts = Posts.objects.filter(user__in=users_f)
+    
+    posts = posts.order_by("-time").all()
+
+    return JsonResponse({ "posts": [post.serialize() for post in posts] }, status=201)
+
+    #usersf = []
+    #followings = Followers.objects.filter(user_id=request.user)
+    ##Insert all users id in a list
+    #for followingU in followings:
+    #    usersf.append(followingU.following.id)
+    #posts = Posts.objects.filter(user__in = usersf)
+
+"""In the future I must be taking care of security from the backend also
+(Check in all route with POST method if request.user ...)
+(Check in that the following user does not already ...)"""

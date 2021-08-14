@@ -14,6 +14,7 @@ class App extends React.Component {
             <div>
                 {this.props.uname && <AddPostForm />}
                 <Counter />
+                <h1>Posts</h1>
                 <PostsList posts={this.props.posts} />
             </div>
         )

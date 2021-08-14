@@ -9,7 +9,8 @@ import createHistory from 'history/createBrowserHistory';
 import App from '../components/App';
 import SignRoute from './SignRoute';
 import Profile from '../components/Profile';
-//import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
+import Following from '../components/FollowingPage';
 
 export const history = createHistory();
 
@@ -22,6 +23,7 @@ const AppRoute = () => (
         <SignRoute path="/login" component={Login} />
         <SignRoute path="/register" component={Register} />
         <Route path="/user/:id" component={Profile} />
+        <PrivateRoute path="/following" component={Following} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

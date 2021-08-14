@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { startFollow, startUnfollow } from '../actions/posts';
+import followApi from '../fetching/follow';
+import unfollowApi from '../fetching/unfollow';
 
-const ProfileHeader = ({ linkUser, userProfile, follow, uname }) => {
+const ProfileHeader = ({ linkUser, userProfile, follow, uname, startFollow, startUnfollow }) => {
     const [button, setButton] = useState(false);
     const followF = () => {
-        console.log('before');
         setButton(true);
-        console.log('after');
+        startFollow(linkUser);
         setTimeout(() => {
             setButton(false);
-        }, 500);
+        }, 250);
+    }
+    const unfollowF = () => {
+        setButton(true);
+        startUnfollow(linkUser);
+        setTimeout(() => {
+            setButton(false);
+        }, 250);
     }
     return(
         <div>
-            <div>{linkUser} - {userProfile && userProfile}</div>
+            <h1>{linkUser} - {userProfile && userProfile}</h1>
             {userProfile && <div>{userProfile}</div>}
             {follow && <div>Following: {follow.following} | Followers: {follow.followers}</div>}
             {
@@ -21,9 +31,9 @@ const ProfileHeader = ({ linkUser, userProfile, follow, uname }) => {
                     uname === (userProfile && userProfile) ?
                     <p>Nothing</p> :
                     (
-                        (follow && follow.follow_up) !== 'None' ?
-                        <button onClick={followF} disabled={button}>Unfollow</button> :
-                        <button onClick={followF} disabled={button}>Follow</button>
+                        (follow && follow.follow_up) === 'None' ?
+                        <button onClick={followF} disabled={button}>Follow</button> :
+                        <button onClick={unfollowF} disabled={button}>Unfollow</button>
                     )
                 )
             }
@@ -31,6 +41,15 @@ const ProfileHeader = ({ linkUser, userProfile, follow, uname }) => {
     );
 };
 
-//(follow && follow.follow_up) !== 'None' ?
+//(
+//    (follow && follow.follow_up) !== 'None' ?
+//    <button onClick={unfollowF} disabled={button}>Unfollow</button> :
+//    <button onClick={followF} disabled={button}>Follow</button>
+//)
 
-export default ProfileHeader;
+const mapDispatchToProps = (dispatch) => ({
+    startFollow: (linkUser) => dispatch(startFollow(linkUser)),
+    startUnfollow: (linkUser) => dispatch(startUnfollow(linkUser))
+});
+
+export default connect(undefined, mapDispatchToProps)(ProfileHeader);
