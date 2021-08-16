@@ -17,7 +17,7 @@ class App extends React.Component {
     //    }
     //}
     //
-    componentWillMount(){
+    componentDidMount(){
         this.props.startSetPosts();
     //    .then(() => {
     //        const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;

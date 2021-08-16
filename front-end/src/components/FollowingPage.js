@@ -4,7 +4,7 @@ import PostsList from './PostsList';
 import { startSetPostsFollowing } from '../actions/posts';
 
 class Following extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.startSetPostsFollowing()//.then(() => {
         //    console.log(this.props.posts);
         //});

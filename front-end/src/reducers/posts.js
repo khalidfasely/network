@@ -44,6 +44,33 @@ export default (state = (postsReducerDefaultState), action) => {
             return {
                 posts: action.posts
             }
+        case 'EDIT_POST':
+            return {
+                ...state,
+                posts: state.posts.map((post) => {
+                        if(post.id === action.id){
+                            return {
+                                ...post,
+                                ...action.updates
+                            };
+                        } else {
+                            return post;
+                        }
+                    })
+                // The example above and The example below are the same functionality
+                //posts: [
+                //    ...state.posts.map((post) => {
+                //        if(post.id === action.id){
+                //            return {
+                //                ...post,
+                //                ...action.updates
+                //            };
+                //        } else {
+                //            return post;
+                //        }
+                //    })
+                //]
+            }
         default:
             return state;
     }

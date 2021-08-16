@@ -38,6 +38,7 @@ class PostsList extends React.Component {
 
     componentDidMount(){
         this.setState(() => ({ loading: true }));
+        this.setComponentState();
     }
     setComponentState = () => {
         const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
@@ -48,9 +49,9 @@ class PostsList extends React.Component {
             this.setState(() => ({ loading: false }));
         }, 500);
     }
-    componentWillMount(){
-        this.setComponentState();
-    }
+    //componentWillMount(){
+    //    this.setComponentState();
+    //}
     componentWillUnmount(){
         //console.log(this.state.currentPosts);
     }

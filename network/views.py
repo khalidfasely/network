@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 from .models import User, Posts, Followers
 
@@ -183,12 +184,30 @@ def following(request):
 
     return JsonResponse({ "posts": [post.serialize() for post in posts] }, status=201)
 
-    #usersf = []
-    #followings = Followers.objects.filter(user_id=request.user)
-    ##Insert all users id in a list
-    #for followingU in followings:
-    #    usersf.append(followingU.following.id)
-    #posts = Posts.objects.filter(user__in = usersf)
+@csrf_exempt
+@login_required(login_url="/login")
+def savep(request, id):
+
+    try:
+        post = Posts.objects.get(pk=id)
+    except:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    #Security
+    if request.user != post.user:
+        return JsonResponse({"message": "You're not able to Edit this post."}, status=201)
+
+    if request.method == "GET":
+        return JsonResponse({"message": "get method"})
+
+    # Update whether email is read or should be archived
+    if request.method == "PUT":
+        data = json.loads(request.body)
+
+        post.content = data.get("content")
+        post.save()
+        #return HttpResponse(status=204)
+        return JsonResponse({"message": "Edit successfully."}, status=201)
 
 """In the future I must be taking care of security from the backend also
 (Check in all route with POST method if request.user ...)

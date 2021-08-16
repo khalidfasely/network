@@ -4,6 +4,7 @@ import postsProfileApi from '../fetching/postsProfile';
 import followApi from '../fetching/follow';
 import unFollowApi from '../fetching/unfollow';
 import postsFollowingApi from '../fetching/postsFollowing';
+import editPostApi from '../fetching/editPost';
 
 export const setPosts = (posts) => ({
     type: 'SET_POSTS',
@@ -88,6 +89,21 @@ export const startSetPostsFollowing = () => {
         return postsFollowingApi().then((result) => {
             dispatch(setPostsFollowing(result));
             return result;
+        });
+    };
+};
+
+export const editPost = (id, updates) => ({
+    type: 'EDIT_POST',
+    id,
+    updates
+});
+
+export const startEditPost = (id, updates) => {
+    return (dispatch) => {
+        return editPostApi(id, updates.content).then((message) => {
+            dispatch(editPost(id, updates));
+            return message;
         });
     };
 };

@@ -5,7 +5,7 @@ import PostsList from './PostsList';
 import ProfileHeader from './ProfileHeader';
 
 class Profile extends React.Component {
-    componentWillMount(){
+    componentDidMount(){
         this.props.startSetPostsProfile(this.props.linkUser);
         
     }
