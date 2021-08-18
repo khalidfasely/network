@@ -5,10 +5,13 @@ import followApi from '../fetching/follow';
 import unFollowApi from '../fetching/unfollow';
 import postsFollowingApi from '../fetching/postsFollowing';
 import editPostApi from '../fetching/editPost';
+import likeApi from '../fetching/like';
+import unlikeApi from '../fetching/unlike';
 
-export const setPosts = (posts) => ({
+export const setPosts = ({ posts, likes }) => ({
     type: 'SET_POSTS',
-    posts
+    posts,
+    likes
 });
 
 export const startSetPosts = () => {
@@ -21,25 +24,27 @@ export const startSetPosts = () => {
     };
 };
 
-export const addPost = (post) => ({
+export const addPost = ({ post, likes }) => ({
     type: 'ADD_POST',
-    post
+    post,
+    likes
 });
 
 export const startAddPost = ({ post }) => {
     return (dispatch) => {
         return addPostApi({ content: post }).then((result) => {
-            dispatch(addPost(result.post));
+            dispatch(addPost(result));
             return result;
         });
     };
 };
 
-export const setPostsProfile = ({posts, user, follow}) => ({
+export const setPostsProfile = ({posts, user, follow, likes}) => ({
     type: 'SET_POSTS_PROFILE',
     posts,
     user,
-    follow
+    follow,
+    likes
 });
 
 export const startSetPostsProfile = (id) => {
@@ -79,9 +84,10 @@ export const startUnfollow = (following) => {
     };
 };
 
-export const setPostsFollowing = ({ posts }) => ({
+export const setPostsFollowing = ({ posts, likes }) => ({
     type: 'POSTS_FOLLOWING',
-    posts
+    posts,
+    likes
 });
 
 export const startSetPostsFollowing = () => {
@@ -104,6 +110,34 @@ export const startEditPost = (id, updates) => {
         return editPostApi(id, updates.content).then((message) => {
             dispatch(editPost(id, updates));
             return message;
+        });
+    };
+};
+
+export const like = (id) => ({
+    type: 'LIKE',
+    id
+});
+
+export const startLike = (id) => {
+    return (dispatch) => {
+        return likeApi(id).then((result) => {
+            dispatch(like(id));
+            return result;
+        });
+    };
+};
+
+export const unlike = (id) => ({
+    type: 'UNLIKE',
+    id
+});
+
+export const startUnlike = (id) => {
+    return (dispatch) => {
+        return unlikeApi(id).then((result) => {
+            dispatch(unlike(id));
+            return result;
         });
     };
 };

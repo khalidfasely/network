@@ -18,7 +18,7 @@ class Profile extends React.Component {
                   follow={this.props.follow}
                   uname={this.props.uname}
                 />
-                <PostsList posts={this.props.postsProfile} />
+                <PostsList posts={this.props.postsProfile} likes={this.props.likes} />
             </div>
         );
     }
@@ -31,7 +31,8 @@ const mapStateToProps = (state, props) => {
         linkUser: props.match.params.id,
         postsProfile: state.posts.posts,
         userProfile: state.posts.user,
-        follow: state.posts.follow
+        follow: state.posts.follow,
+        likes: state.posts.likes
     };
 };
 

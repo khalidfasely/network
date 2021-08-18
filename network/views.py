@@ -8,7 +8,9 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Posts, Followers
+from .functions import likes
+
+from .models import User, Posts, Followers, Likes
 
 #def index(request):
 #    if request.user.is_authenticated:
@@ -113,7 +115,7 @@ def new_post(request):
     post.save()
     #print(f'post, {post.serialize()}')
 
-    return JsonResponse({ "message": "Post saved successfully.", "post": post.serialize() }, status=201)
+    return JsonResponse({ "message": "Post saved successfully.", "post": post.serialize(), "likes": likes(request) }, status=201)
 
 
 def posts(request):
@@ -121,7 +123,7 @@ def posts(request):
     #posts = list(Posts.objects.order_by("-time").values())
     #return JsonResponse({ "posts": posts }, status=201)
     posts = Posts.objects.order_by("-time").all()
-    return JsonResponse({ "posts": [post.serialize() for post in posts] }, status=201)
+    return JsonResponse({ "posts": [post.serialize() for post in posts], "likes": likes(request) }, status=201)
 
 def profile(request, user_id):
     user = User.objects.get(pk=user_id)
@@ -142,7 +144,8 @@ def profile(request, user_id):
             "following": f"{following}",
             "followers": f"{followers}",
             "follow_up": f"{follow_up}"
-        }
+        },
+        "likes": likes(request)
     }, status=201)
 
 @csrf_exempt
@@ -182,7 +185,7 @@ def following(request):
     
     posts = posts.order_by("-time").all()
 
-    return JsonResponse({ "posts": [post.serialize() for post in posts] }, status=201)
+    return JsonResponse({ "posts": [post.serialize() for post in posts], "likes": likes(request) }, status=201)
 
 @csrf_exempt
 @login_required(login_url="/login")
@@ -209,6 +212,30 @@ def savep(request, id):
         #return HttpResponse(status=204)
         return JsonResponse({"message": "Edit successfully."}, status=201)
 
+def like(request, id):
+    # Increse Post's Likes
+    likes_num = Posts.objects.get(pk=id).likes
+    Posts.objects.filter(pk=id).update(likes = likes_num + 1)
+    
+    # Create New Like-User
+    post = Posts.objects.get(pk=id)
+    
+    likes_post = Likes.objects.create(post_id=post, likes_user_id=request.user)
+    likes_post.save()
+    return JsonResponse({"message": "Like successfully."}, status=201)
+
+def unlike(request, id):
+    # Increse Post's Likes
+    likes_num = Posts.objects.get(pk=id).likes
+    Posts.objects.filter(pk=id).update(likes = likes_num - 1)
+    
+    # Create New Like-User
+    post = Posts.objects.get(pk=id)
+    
+    Likes.objects.get(post_id=post, likes_user_id=request.user).delete()
+    return JsonResponse({"message": "Unlike successfully."}, status=201)
+
 """In the future I must be taking care of security from the backend also
 (Check in all route with POST method if request.user ...)
-(Check in that the following user does not already ...)"""
+(Check in that the following user does not already ...)
+(Check if the post you like you are not already likes it ...)"""

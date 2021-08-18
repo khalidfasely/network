@@ -36,7 +36,7 @@ class App extends React.Component {
                 {this.props.uname && <AddPostForm />}
                 <Counter />
                 <h1>Posts</h1>
-                <PostsList posts={this.props.posts} />
+                <PostsList posts={this.props.posts} likes={this.props.likes} />
             </div>
         )
     }
@@ -45,7 +45,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
     uname: state.auth.uname,
-    posts: state.posts.posts
+    posts: state.posts.posts,
+    likes: state.posts.likes
 });
 
 const mapDispatchToProps = (dispatch) => ({

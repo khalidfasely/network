@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { startEditPost } from '../actions/posts';
+import { startEditPost, startLike, startUnlike } from '../actions/posts';
 
-const PostItem = ({ id, user, user_id, content, likes, time, uname, editPost }) => {
+const PostItem = ({
+        id, user, user_id, content, likes, time,
+        uname,
+        editPost,
+        likesList = [],
+        like, unlike
+    }) => {
     const [editing, setEditing] = useState(false);
     const [newContent, setNewContent] = useState();
     const [message, setMessage] = useState();
     const [error, setError] = useState();
+
+    const [button, setButton] = useState(false);
 
     const edit = () => {
         setEditing(true);
@@ -27,14 +35,6 @@ const PostItem = ({ id, user, user_id, content, likes, time, uname, editPost }) 
         } else {
             setError('Set The New Content.');
         }
-        //editPost(id, { id, user, user_id, content: newContent, likes, time })
-        //.then((message) => {
-        //    setEditing(false);
-        //    setMessage(message.message);
-        //    setTimeout(() => {
-        //        setMessage();
-        //    }, 2000)
-        //});
     }
 
     const unEditPost = () => {
@@ -45,6 +45,23 @@ const PostItem = ({ id, user, user_id, content, likes, time, uname, editPost }) 
         const newContent = e.target.value;
         //console.log(newContent);
         setNewContent(newContent);
+    }
+
+    const disableButton = () => {
+        setButton(true);
+        setTimeout(() => {
+            setButton(false);
+        }, 200);
+    }
+
+    const like_button = () => {
+        disableButton();
+        like(id);
+    }
+
+    const unlike_button = () => {
+        disableButton();
+        unlike(id);
     }
 
     if(editing){
@@ -66,80 +83,26 @@ const PostItem = ({ id, user, user_id, content, likes, time, uname, editPost }) 
             <div>user id: {user_id}</div>
             <div>content: {content}</div>
             <div>likes: {likes}</div>
+            {
+                uname && (
+                    likesList.includes(id) ?
+                    <button disabled={button} onClick={unlike_button}>Unlike</button> :
+                    <button disabled={button} onClick={like_button}>Like</button>
+                    )
+            }
             <div>time: {time}</div>
         </div>
     );
-};
+}; //<div>likes: {likes}</div>
 
 const mapStateToProps = (state) => ({
     uname: state.auth.uname
 });
 
 const mapDispatchToState = (dispatch) => ({
-    editPost: (id, updates) => dispatch(startEditPost(id, updates))
+    editPost: (id, updates) => dispatch(startEditPost(id, updates)),
+    like: (id) => dispatch(startLike(id)),
+    unlike: (id) => dispatch(startUnlike(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToState)(PostItem);
-
-
-
-//import React, { useState } from 'react';
-//import { Link } from 'react-router-dom';
-//import { connect } from 'react-redux';
-//
-//const PostItem = ({ id, user, user_id, content, likes, time, uname }) => {
-//    const [editing, setEditing] = useState(false);
-//    const [newContent, setNewContent] = useState();
-//
-//    const edit = () => {
-//        setEditing(true);
-//    }
-//
-//    const savePost = () => {
-//        fetch(`/data/savep/${id}`, {
-//            method: 'PUT',
-//            body: JSON.stringify({
-//                content: `${newContent}`
-//            })
-//        })
-//        .then(response => response.json())
-//        .then(message => {
-//            // Print result
-//            console.log(message);
-//        })
-//        .then(() => setEditing(false))
-//        .catch(er => console.log(er));
-//    }
-//
-//    const changeContent = (e) => {
-//        const newContent = e.target.value;
-//        console.log(newContent);
-//        setNewContent(newContent);
-//    }
-//
-//    if(editing){
-//        return (
-//            <div>
-//                <textarea onChange={changeContent}>{content}</textarea>
-//                <button onClick={savePost}>Save</button>
-//            </div>
-//        );
-//    }
-//    return (
-//        <div>
-//            <h3>id: {id}</h3>
-//            {uname === user && <button onClick={edit}>Edit</button>}
-//            <Link to={`/user/${user_id}`}>user: {user}</Link>
-//            <div>user id: {user_id}</div>
-//            <div>content: {content}</div>
-//            <div>likes: {likes}</div>
-//            <div>time: {time}</div>
-//        </div>
-//    );
-//};
-//
-//const mapStateToProps = (state) => ({
-//    uname: state.auth.uname
-//});
-//
-//export default connect(mapStateToProps)(PostItem);

@@ -34,6 +34,9 @@ class Likes(models.Model):
     def __str__(self):
         return f"{self.likes_user_id} Like {self.post_id}"
 
+    def serialize(self):
+        return self.post_id.id #{"post_id": self.post_id.id}
+
 
 #class Comments(models.Model):
 #    post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)

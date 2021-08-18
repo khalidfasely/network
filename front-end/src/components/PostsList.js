@@ -84,7 +84,7 @@ class PostsList extends React.Component {
                     </div>
                     ) : (
                         this.state.currentPosts.map((post) => {
-                            return <PostItem key={post.id} {...post} />
+                            return <PostItem key={post.id} likesList={this.props.likes} {...post} />
                         })
                     )
                 }

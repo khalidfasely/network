@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { history } from '../router/AppRouter';
 import { startLogout } from '../actions/auth';
 
 const Nav = ({ uname, u_is_admin, startLogout }) => {
@@ -24,7 +25,7 @@ const Nav = ({ uname, u_is_admin, startLogout }) => {
             </div>
           </nav>
     )
-};
+}; // onClick={() => startLogout().then(() => history.push('/login'))}
 
 //Export the connected component
 const mapStateToProps = (state) => ({

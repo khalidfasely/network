@@ -13,14 +13,15 @@ class Following extends React.Component {
         return (
             <div>
                 <h1>Following Page</h1>
-                <PostsList posts={this.props.posts} />
+                <PostsList posts={this.props.posts} likes={this.props.likes} />
             </div>
         );
     };
 };
 
 const mapStateToProps = (state) => ({
-    posts: state.posts.posts
+    posts: state.posts.posts,
+    likes: state.posts.likes
 });
 
 const mapDispatchToProps = (dispatch) => ({
