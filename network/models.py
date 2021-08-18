@@ -14,6 +14,9 @@ class Posts(models.Model):
 
     def __str__(self):
         return f"{self.user} Post {self.content} In {self.time}"
+    
+    def is_valid_post(self):
+        return self.likes >= 0 and self.content != ''
 
     def serialize(self):
         return {
@@ -53,3 +56,6 @@ class Followers(models.Model):
 
     def __str__(self):
         return f"{self.user_id} Follow {self.following}"
+
+    def is_valid_follower(self):
+        return self.user_id != self.following
