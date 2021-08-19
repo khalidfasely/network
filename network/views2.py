@@ -157,16 +157,10 @@ def follow(request):
         following = data.get("following", "")
         following_user = User.objects.get(pk=following)
 
-        already_follow = Followers.objects.filter(user_id=request.user, following=following_user).first()
-        
-        if already_follow or request.user == following_user: #LC2
-            return ({ "message": "You have not the right to follow yourself Or You are already following this user." })
-        
-        else:
-            follow = Followers.objects.create(user_id=request.user, following=following_user)
-            follow.save()
+        follow = Followers.objects.create(user_id=request.user, following=following_user)
+        follow.save()
 
-            return JsonResponse({ "message": "Follow Successfully." })
+        return JsonResponse({ "message": "Follow Successfully." })
 
     return JsonResponse({ "message": "The method must be POST And/Or You need the be logged in." })
 
@@ -177,15 +171,9 @@ def unfollow(request):
         following = data.get("following", "")
         following_user = User.objects.get(pk=following)
 
-        not_already_unfollow = Followers.objects.filter(user_id=request.user, following=following_user).first()
+        Followers.objects.filter(user_id=request.user, following=following_user).delete()
 
-        if not_already_unfollow and request.user != following_user: #LC2
-            Followers.objects.filter(user_id=request.user, following=following_user).delete()
-
-            return JsonResponse({ "message": "Unfollow Successfully." })
-        
-        else:
-            return ({ "message": "You have not the right to follow yourself Or You are already following this user." })
+        return JsonResponse({ "message": "Unfollow Successfully." })
 
     return JsonResponse({ "message": "The method must be POST And/Or You need the be logged in." })
 
@@ -237,16 +225,9 @@ def like(request, id):
         # Create New Like-User
         post = Posts.objects.get(pk=id)
 
-        already_like = Likes.objects.filter(post_id=post, likes_user_id=request.user).first()
-
-        if already_like: #LC3
-            return JsonResponse({ "message": "You are already like this post." })
-
-        else:
-            likes_post = Likes.objects.create(post_id=post, likes_user_id=request.user)
-            likes_post.save()
-
-            return JsonResponse({"message": "Like successfully."}, status=201)
+        likes_post = Likes.objects.create(post_id=post, likes_user_id=request.user)
+        likes_post.save()
+        return JsonResponse({"message": "Like successfully."}, status=201)
     
     return JsonResponse({ "message": "You Are Not Log In" })
 
@@ -259,14 +240,8 @@ def unlike(request, id):
         # Create New Like-User
         post = Posts.objects.get(pk=id)
 
-        not_already_unlike = Likes.objects.filter(post_id=post, likes_user_id=request.user).first()
-
-        if not_already_unlike: #LC3
-            Likes.objects.get(post_id=post, likes_user_id=request.user).delete()
-            return JsonResponse({"message": "Unlike successfully."}, status=201)
-        
-        else:
-            return JsonResponse({ "message": "You have not the right to unlike this post." })
+        Likes.objects.get(post_id=post, likes_user_id=request.user).delete()
+        return JsonResponse({"message": "Unlike successfully."}, status=201)
 
     return JsonResponse({ "message": "You Are Not Log In" })
 
@@ -274,5 +249,5 @@ def unlike(request, id):
 LC
 In the future I must be taking care of security from the backend also
 (Check in all route with POST method if request.user ...) done
-(Check in that the following user does not already ...)done
-(Check if the post you like you are not already likes it ...)done"""
+(Check in that the following user does not already ...)
+(Check if the post you like you are not already likes it ...)"""
