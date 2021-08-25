@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import register from '../fetching/register';
 import { history } from '../router/AppRouter';
 import { startRegister } from '../actions/auth';
+import { Link } from 'react-router-dom';
 
 const Register = ({ startRegister }) => {
     const [username, setUsername] = useState('');
@@ -105,6 +106,7 @@ const Register = ({ startRegister }) => {
               <button className='form_register--button'>Submit</button>
             </div>
         </form>
+        Already have an account? <Link to='/login'>Log In here.</Link>
       </div>
     );
 }
