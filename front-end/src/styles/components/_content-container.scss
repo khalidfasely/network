@@ -1,0 +1,12 @@
+.content-container {
+    margin: 0 auto;
+    max-width: 90rem;
+    padding: 0 $m-size;
+}
+
+.content-container_body {
+    @extend .content-container;
+    margin-top: $s-size;
+    margin-bottom: $xs-size;
+    max-width: 70rem;
+}

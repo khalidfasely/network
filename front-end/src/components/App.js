@@ -34,13 +34,11 @@ class App extends React.Component {
         return (
             <div>
                 {this.props.uname && <AddPostForm />}
-                <Counter />
-                <h1>Posts</h1>
                 <PostsList posts={this.props.posts} likes={this.props.likes} />
             </div>
         )
     }
-};
+};//<h1>Posts</h1>
 
 
 const mapStateToProps = (state) => ({

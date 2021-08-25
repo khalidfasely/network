@@ -12,7 +12,7 @@ class Following extends React.Component {
     render() {
         return (
             <div>
-                <h1>Following Page</h1>
+                <h2 className='content-container_body'>Following Page</h2>
                 <PostsList posts={this.props.posts} likes={this.props.likes} />
             </div>
         );

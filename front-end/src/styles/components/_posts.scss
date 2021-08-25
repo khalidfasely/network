@@ -1,0 +1,141 @@
+.post {
+    border: 1px solid darken(#cacccd, 20%);
+    /*text-align: center;*/
+    margin: $m-size 0;
+    > textarea/*, .post_edit-button*/ {
+        width: 80%;
+        margin: $xs-size 0 0 0;
+    }
+    @media (max-width: $desktop-breakpoint) {
+        margin: $s-size 0;
+    }
+}
+
+.editing {
+    text-align: center;
+}
+
+.post-content {
+    margin: $s-size $l-size;
+    margin-bottom: 0;
+    > p {
+        text-align: center;
+    }
+    @media (max-width: $desktop-breakpoint) {
+        margin: $xs-size $s-size;
+        margin-bottom: 0;
+    }
+}
+
+.post_edit-button {
+    border: none;
+    background-color: lighten($green, 20%);
+    color: $off-white;
+    font-size: larger;
+    padding: $xs-size;
+    margin: $xs-size;
+    &:hover{
+        background-color: $green;
+    }
+}
+
+.post_unedit-button {
+    @extend .post_edit-button;
+    background-color: lighten($red, 20%);
+    margin: $xs-size;
+    &:hover{
+        background-color: $red;
+    }
+}
+
+@media (max-width: $desktop-breakpoint) {
+    .post_edit-button, .post_unedit-button {
+        /*width: 25%;*/
+        margin: .3rem;
+        margin-top: 0;
+    }
+}
+
+.post_user_edit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post_user_edit > button {
+    @extend .post_edit-button;
+    background: none;
+    color: $dark-grey;
+    &:hover{
+        background-color: lighten($grey, 45%);
+    }
+}
+
+.user_link {
+    color: $orange-main;
+    font-size: larger;
+    text-decoration: none;
+    align-self: center;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+    }
+}
+
+.post_content {
+    font-size: larger;
+    font-weight: 700;
+    margin: $xs-size;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+        margin: $xxs-size;
+    }
+    word-break: break-all;
+}
+
+.post_time {
+    color: $grey;
+}
+
+.post_likes {
+    color: $grey;
+    margin-bottom: $xs-size;
+}
+
+.like_unlike_img {
+    width: 30%;
+    margin: -2px;
+}
+
+.like_button, .unlike_button {
+    background: none;
+    border: none;
+    font-size: large;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /*width: 12%;*//*This code make the like img smaller with smaller screens*/
+    > span {
+        margin-left: $xs-size
+    }
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+    }
+}
+
+.like_button {
+    color: $orange-main;
+}
+
+.like_section {
+    border-top: 1px solid darken(#cacccd, 20%);
+    justify-content: center;
+    display: flex;
+    padding: $xs-size 0;
+}
+
+.post_no_posts {
+    color: $grey;
+    font-size: large;
+    font-weight: 700;
+    text-align: center;
+    padding: $xs-size 0;
+}

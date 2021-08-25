@@ -1,0 +1,30 @@
+.profile_header {
+    text-align: center;
+}
+
+.user_profile {
+    color: lighten($orange-main, 15%);
+    font-family: cursive;
+}
+
+.follow {
+    font-size: larger;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: large;
+    }
+}
+
+.follow_button, .unfollow_button {
+    background-color: lighten($grey, 45%);
+    border: 1px solid darken(#cacccd, 20%);
+    font-size: large;
+    margin: $xxs-size 0;
+    padding: $xxs-size $xs-size;
+    &:hover {
+        background-color: lighten($grey, 25%);
+    }
+    @media (max-width: $desktop-breakpoint) {
+        padding: 0 $xxs-size;
+        font-size: medium;
+    }
+}

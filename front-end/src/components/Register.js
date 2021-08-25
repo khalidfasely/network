@@ -57,39 +57,55 @@ const Register = ({ startRegister }) => {
     }
 
     return (
+      <div className='form_register'>
         <form onSubmit={registerData}>
-            {error && <p>{error}</p>}
-            <input
-              name='username'
-              type="text"
-              placeholder="Username"
-              autoFocus
-              value={username}
-              onChange={onUsernameChange}
-            />
-            <input
-              name='email'
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={onEmailChange}
-            />
-            <input
-              name='password'
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={onPasswordChange}
-            />
-            <input
-              name='confirmation'
-              type="password"
-              placeholder="Password(Again)"
-              value={confirmation}
-              onChange={onConfirmationChange}
-            />
-            <button>Submit</button>
+            {error && <div className='error'><i>{error}</i></div>}
+            <div>
+              <input
+                className='form_register--input'
+                name='username'
+                type="text"
+                placeholder="Username"
+                autoFocus
+                value={username}
+                onChange={onUsernameChange}
+              />
+            </div>
+            <div>
+              <input
+                className='form_register--input'
+                name='email'
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={onEmailChange}
+              />
+            </div>
+            <div>
+              <input
+                className='form_register--input'
+                name='password'
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={onPasswordChange}
+              />
+            </div>
+            <div>
+              <input
+                className='form_register--input'
+                name='confirmation'
+                type="password"
+                placeholder="Password(Again)"
+                value={confirmation}
+                onChange={onConfirmationChange}
+              />
+            </div>
+            <div>
+              <button className='form_register--button'>Submit</button>
+            </div>
         </form>
+      </div>
     );
 }
 

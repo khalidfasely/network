@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import AppRoute from './router/AppRouter';
 import { login, startSetUser } from './actions/auth';
 import { startSetPosts } from './actions/posts';
+import './styles/styles.scss';
 //import './playground/redux-101';
 
 //ReactDOM.render(

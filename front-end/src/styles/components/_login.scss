@@ -1,0 +1,53 @@
+.form_login, .form_register {
+    text-align: center;
+}
+
+.form_login--input, .form_register--input {
+    border: 1px solid darken(#cacccd, 20%);
+    font-size: large;
+    padding: $s-size;
+    margin: $xxs-size 0;
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+        padding: $xs-size;
+        margin: $xxs-size 0;
+    }
+}
+
+.form_login--button, .form_register--button {
+    background-color: lighten($grey, 35%);
+    border: none;
+    color: $off-white;
+    font-size: large;
+    padding: $s-size;
+    margin: $xxs-size 0;
+    &:hover {
+        background-color: lighten($grey, 20%);
+    }
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+        padding: $xs-size;
+        margin: $xxs-size 0;
+    }
+}
+
+/*.form_login {
+    justify-content: center;
+    display: flex;
+    > form {
+        
+        display: grid;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.form_login--input {
+    border: 1px solid darken(#cacccd, 20%);
+    padding: $s-size;
+    margin: $xxs-size 0;
+    &, .form_login--button {
+        display: flex;
+    }
+}*/
+

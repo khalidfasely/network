@@ -7,6 +7,7 @@ import { startAddPost } from '../actions/posts';
 const AddPostForm = ({ startAddPost }) => {
     const [post, setPost] = useState('');
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
 
     const addPost = (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ const AddPostForm = ({ startAddPost }) => {
     //        });
             startAddPost({ post }).then((result) => {
                 setPost('');
+                setError('');
                 setMessage(result.message);
                 setTimeout(() => {
                     setMessage('');
@@ -28,7 +30,7 @@ const AddPostForm = ({ startAddPost }) => {
                 }, 2000);
             })
         } else {
-            setMessage('Set the post.');
+            setError('Set the post.');
         };
     };
 
@@ -37,15 +39,21 @@ const AddPostForm = ({ startAddPost }) => {
         setPost(postContent);
     }
     return (
-        <form onSubmit={addPost}>
-          {message && <p>{message}</p>}
-          <textarea
-            placeholder="Add a post to your profile"
-            value={post}
-            onChange={onPostChange}
-          />
-          <button>Add Post</button>
-        </form>
+        <div className='content-container_body'>
+            <div className='form_new'>
+                <form onSubmit={addPost}>
+                  {message && <p className='message'><i>{message}</i></p>}
+                  {error && <p className='error'><i>{error}</i></p>}
+                  <textarea
+                    className='form_new--textarea'
+                    placeholder="Add a post to your profile"
+                    value={post}
+                    onChange={onPostChange}
+                  />
+                  <button className='form_new--button'>Add Post</button>
+                </form>
+            </div>
+        </div>
     );
 };
 

@@ -46,25 +46,35 @@ const Login = ({ startLogin }) => {
     }
 
     return (
-        <form onSubmit={loginData}>
-            {error && <p>{error}</p>}
-            <input
-                name='username'
-                type="text"
-                placeholder="Username"
-                autoFocus
-                value={username}
-                onChange={onUsernameChange}
-            />
-            <input
-                name='password'
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={onPasswordChange}
-            />
-            <button>Login</button>
-        </form>
+        <div className='content-container_body form_login'>
+            <form onSubmit={loginData}>
+                {error && <div className='error'><i>{error}</i></div>}
+                <div>
+                    <input
+                        className='form_login--input'
+                        name='username'
+                        type="text"
+                        placeholder="Username"
+                        autoFocus
+                        value={username}
+                        onChange={onUsernameChange}
+                    />
+                </div>
+                <div>
+                    <input
+                    className='form_login--input'
+                    name='password'
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={onPasswordChange}
+                    />
+                </div>
+                <div>
+                    <button className='form_login--button'>Login</button>
+                </div>
+            </form>
+        </div>
     );
 };
 

@@ -1,0 +1,21 @@
+.pagin {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pagin_button {
+    background: lighten($grey, 50%);
+    border: none;
+    color: $dark-grey;
+    margin: 0 0 0 $xs-size;
+    padding: $xs-size $s-size;
+    font-size: large;
+    &:hover {
+        background: lighten($grey, 30%);
+    }
+    @media (max-width: $desktop-breakpoint) {
+        font-size: medium;
+        padding: $xs-size;
+        margin: 0 0 0 $xxs-size;
+    }
+}

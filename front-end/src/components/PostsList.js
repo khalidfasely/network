@@ -20,6 +20,7 @@
 //
 //export default PostsList;
 import React, { useEffect, useState } from 'react';
+import LoaderPage from './Loader';
 import Pagination from './Pagination';
 import PostItem from './PostItem';
 
@@ -74,13 +75,13 @@ class PostsList extends React.Component {
 
     render() {
         if(this.state.loading){
-            return <p>Loading...</p>
+            return <p className='content-container_body'><LoaderPage /></p>
         }
         return (
-            <div>
+            <div className='content-container_body'>
                 {
-                    this.props.posts.length === 0 ? (<div>
-                        No Posts
+                    this.props.posts.length === 0 ? (<div className='content-container_body post post_no_posts'>
+                        <i>No Posts</i>
                     </div>
                     ) : (
                         this.state.currentPosts.map((post) => {

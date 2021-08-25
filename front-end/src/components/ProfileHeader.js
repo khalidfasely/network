@@ -21,32 +21,40 @@ const ProfileHeader = ({ linkUser, userProfile, follow, uname, startFollow, star
         }, 250);
     }
     return(
-        <div>
-            <h1>{linkUser} - {userProfile && userProfile}</h1>
-            {userProfile && <div>{userProfile}</div>}
-            {follow && <div>Following: {follow.following} | Followers: {follow.followers}</div>}
+        <div className='content-container_body profile_header'>
+            <h2 className='user_profile'>{userProfile && userProfile}</h2>
+            {follow && <div className='follow'>Following: <b>{follow.following}</b> | Followers: <b>{follow.followers}</b></div>}
             {
                 uname &&
                 (
-                    uname === (userProfile && userProfile) ?
-                    <p>Nothing</p> :
+                    uname !== (userProfile && userProfile) &&
                     (
                         (follow && follow.follow_up) === 'None' ?
-                        <button onClick={followF} disabled={button}>Follow</button> :
-                        <button onClick={unfollowF} disabled={button}>Unfollow</button>
+                        <button className='follow_button' onClick={followF} disabled={button}>Follow</button> :
+                        <button className='unfollow_button' onClick={unfollowF} disabled={button}>Unfollow</button>
                     )
                 )
             }
         </div>
     );
 };
-
-//(
-//    (follow && follow.follow_up) !== 'None' ?
-//    <button onClick={unfollowF} disabled={button}>Unfollow</button> :
-//    <button onClick={followF} disabled={button}>Follow</button>
-//)
-
+//<div>
+//    <h1>{linkUser} - {userProfile && userProfile}</h1>
+//    {userProfile && <div>{userProfile}</div>}
+//    {follow && <div>Following: {follow.following} | Followers: {follow.followers}</div>}
+//    {
+//        uname &&
+//        (
+//            uname === (userProfile && userProfile) ?
+//            <p>Nothing</p> :
+//            (
+//                (follow && follow.follow_up) === 'None' ?
+//                <button onClick={followF} disabled={button}>Follow</button> :
+//                <button onClick={unfollowF} disabled={button}>Unfollow</button>
+//            )
+//        )
+//    }
+//</div>
 const mapDispatchToProps = (dispatch) => ({
     startFollow: (linkUser) => dispatch(startFollow(linkUser)),
     startUnfollow: (linkUser) => dispatch(startUnfollow(linkUser))

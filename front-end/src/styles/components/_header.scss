@@ -1,0 +1,86 @@
+.header {
+  border-bottom: .1px solid lighten($orange-main, 30%);
+  /*box-shadow: 3px 0px 3px rgb(0 0 0 / 5%)
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);*/
+}
+
+.header--title {
+    color: $orange-main;
+    font-weight: 400;
+    font-size: $l-size;    
+    text-decoration: none;
+}
+
+.header--content {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: $s-size 0;
+}
+
+/**/
+
+.header--link {
+    color: darken($orange-main, 25%);
+    text-decoration: none;
+    font-size: larger;
+    margin-left: $xs-size;
+    
+    flex-direction: column;
+    @media (max-width: $desktop-breakpoint) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: $xs-size;
+        font-size: large;
+    }
+}
+
+.header--button {
+    @extend .header--link;
+    border: none;
+    background-color: lighten($orange-main, 20%);
+    display: inline-block;
+    line-height: 1;
+    border-radius: 10%;
+    padding: $xs-size;
+    margin-left: $xs-size;
+    &:hover {
+        background-color: $orange-main;
+    }
+    flex-direction: column;
+    @media (max-width: $desktop-breakpoint) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: $xs-size;
+        padding: .6rem;
+        font-size: large;
+    }
+}
+
+.underline{
+    position: relative;
+  }
+  
+  .underline::before{
+    content: '';
+    position: absolute;
+    bottom: -0.6rem;
+    right: 0;
+    width: 0;
+    height: 0.3rem;
+    border-radius: 1rem;
+    border-bottom-right-radius: 2rem;
+    border-top-left-radius: 2rem;
+    background-color: $orange-main;
+    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  
+  @media (hover: hover) and (pointer: fine) {
+    .underline:hover::before{
+      left: 0;
+      right: auto;
+      width: 100%;
+    }
+  }

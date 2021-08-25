@@ -6,24 +6,27 @@ import { startLogout } from '../actions/auth';
 
 const Nav = ({ uname, u_is_admin, startLogout }) => {
     return (
-        <nav>
-            <Link to='/'>Network</Link>
-            <div>
-                <Link to='/'>{uname && uname}{u_is_admin && <span>(V)</span>}</Link>
-                <Link to='/'>All Posts</Link>
+        <header>
+          <div className='content-container'>
+            <div className='header--content header'>
+              <Link className='header--title' to='/'>Network</Link>
+              <nav className='header--links'>
+                <Link to='/' className='header--link underline'>{uname && uname}{u_is_admin && <span>(V)</span>}</Link>
+                <Link to='/' className='header--link underline'>All Posts</Link>
                 { uname ?
-                  <span>
-                    <Link to='/following'>Following</Link>
-                    <button onClick={startLogout}>Logout</button>
-                  </span> :
-                  <span>
-                    <Link to='/login'>Log In</Link>
-                    <Link to='/register'>Register</Link>
-                  </span>
+                  <>
+                    <Link to='/following' className='header--link underline'>Following</Link>
+                    <button onClick={startLogout} className='header--button'>Logout</button>
+                  </> :
+                  <>
+                    <Link to='/login' className='header--button'>Log In</Link>
+                    <Link to='/register' className='header--button'>Register</Link>
+                  </>
                 }
-                
+              </nav>
             </div>
-          </nav>
+          </div>
+        </header>
     )
 }; // onClick={() => startLogout().then(() => history.push('/login'))}
 

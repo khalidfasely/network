@@ -1,0 +1,44 @@
+.form_new {
+    border: 1px solid darken(#cacccd, 20%);
+    text-align: center;
+    /*border-radius: 5%;*/
+    border-top-right-radius: 5%;
+    > form {
+        margin: $xs-size 0;
+        > textarea, button {
+            width: 80%;
+        }
+    }
+}
+
+.error {
+    color: firebrick;
+}
+
+.message {
+    color: forestgreen;
+}
+
+.form_new--textarea {
+    /*border-color: lighten($grey, 20%);*/
+    font-size: large;
+    padding: $m-size;
+    
+    border: 1px solid #cacccd;
+    height: 10rem;
+    /*font-size: $font-size-large;*/
+    font-weight: 300;
+    /*padding: $s-size;*/
+    resize: none;
+}
+
+.form_new--button {
+    border: none;
+    background-color: lighten($grey, 20%);
+    color: $off-white;
+    font-size: larger;
+    padding: $xs-size;
+    &:hover{
+        background-color: $grey;
+    }
+}
