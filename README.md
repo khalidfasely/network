@@ -1,22 +1,3 @@
-# CS50W FP - Blog
-- [Overview](#overview)
-- [Distinctiveness and Complexity](#distinctiveness-and-complexity)
-    - [Requirements](#requirements)
-- [Routes](#routes)
-    - [Login: /login](#login-login)
-    - [Register: /register](#register-register)
-    - [Index: /](#index)
-    - [New blog: /new](#new-blog-new)
-    - [Blog page: /blog/\<blogID>](#blog-page-blogblogid)
-    - [User page: /user/\<userID>](#user-page-useruserid)
-    - [Saved page: /saves](#saved-page-saves)
-- [Models](#models)
-- [What’s contained in each file I created](#whats-contained-in-each-file-i-created)
-    - [final_project/ folder](#finalproject-folder)
-    - [blog/ folder](#blog-folder)
-    - [blog-f-e/ folder](#blog-f-e-folder)
-- [How to run the application](#how-to-run-the-application)
-
 # Overview
   
 In The CS50W course project4, it require us to build a network app that containes the ability to add a post, see the post, like/unlike the posts ...
